@@ -25,7 +25,7 @@ services:
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
       - type: bind
-        source: elasticsearch/.data
+        source: ./elasticsearch/.data
         target: /usr/share/elasticsearch/data
     ports:
       - "${ELASTICSEARCH_HOST_HTTP_PORT}:9200"
