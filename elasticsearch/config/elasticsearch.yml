@@ -14,3 +14,7 @@ xpack.security.enabled: true
 # xpack.security.enabled: false
 # xpack.security.http.ssl.enabled: false
 xpack.monitoring.collection.enabled: true
+
+## Setting Disk Watermark
+### You can find more settings at: https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-cluster.html
+cluster.routing.allocation.disk.threshold_enabled: false
