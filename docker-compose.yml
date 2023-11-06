@@ -1,6 +1,19 @@
-version: '3.2'
+version: '3.8'
 
 services:
+  elk-init:
+    build:
+      context: elk-init/
+    links:
+      - elasticsearch
+    # volumes:
+      # If you need to put inital mappings at the very first start your elasticsearch server
+      # - ./elk-init/initial_mappings.json:/initial_mappings.json
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+    container_name: elk-init
   elasticsearch:
     build:
       context: elasticsearch/
@@ -11,8 +24,8 @@ services:
         source: ./elasticsearch/config/elasticsearch.yml
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
-      - type: volume
-        source: elasticsearch
+      - type: bind
+        source: ./elasticsearch/.data
         target: /usr/share/elasticsearch/data
     ports:
       - "${ELASTICSEARCH_HOST_HTTP_PORT}:9200"
@@ -71,6 +84,3 @@ services:
 networks:
   elk:
     driver: bridge
-
-volumes:
-  elasticsearch:
